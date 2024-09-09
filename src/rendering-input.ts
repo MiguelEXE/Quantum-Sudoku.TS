@@ -6,7 +6,7 @@ const controlsArray: HTMLButtonElement[] = [];
 let selected: HTMLButtonElement | void;
 
 type ClickEventFunction = (outerX: number, outerY: number, innerX: number, innerY: number) => unknown;
-type CollapseEventFunction = () => unknown;
+type CollapseEventFunction = (toggleInterval: boolean) => unknown;
 const clickEventsRegistered: ClickEventFunction[] = [];
 const collapseEventsRegistered: CollapseEventFunction[] = [];
 export function registerClickEvent(func: ClickEventFunction){
@@ -112,12 +112,18 @@ export function initalizeControls(){
         button.classList.add("selected");
     });
     const collapseButton = document.createElement("button");
-    collapseButton.innerText = "COLLAPSE";
+    const collapseManyButton = document.createElement("button");
+    collapseButton.innerText = "STEP";
+    collapseManyButton.innerText = "COLLAPSE";
     collapseButton.addEventListener("click", e => {
         e.preventDefault();
-        collapseEventsRegistered.forEach(f => f());
+        collapseEventsRegistered.forEach(f => f(false));
     });
-    controls.append(collapseButton);
+    collapseManyButton.addEventListener("click", e => {
+        e.preventDefault();
+        collapseEventsRegistered.forEach(f => f(true));
+    });
+    controls.append(collapseButton, collapseManyButton);
 }
 
 export function setInvalidInnerGrid(outerX: number, outerY: number, value: boolean){

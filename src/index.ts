@@ -10,6 +10,19 @@ initalizeControls();
 updateGrid(grid);
 
 let interval: ReturnType<typeof setInterval> | void;
+function toggleInterval(){
+    if(interval){
+        clearInterval(interval);
+        interval = undefined;
+        return;
+    }
+    interval = setInterval(() => {
+        if(isInvalid(grid))
+            grid = initializeGrid();
+        WFCStep(grid);
+        updateGrid(grid);
+    }, 30);
+}
 
 function checkInvalid(grid: OuterGrid){
     for(let y=0;y<3;y++)
@@ -36,13 +49,9 @@ registerClickEvent(function(outX, outY, innerX, innerY){
     updateGrid(grid);
     checkInvalid(grid);
 });
-onTriggerCollapse(function(){
+onTriggerCollapse(function(isIntervalToggle){
+    if(isIntervalToggle)
+        return toggleInterval();
     WFCStep(grid);
     updateGrid(grid);
 });
-interval = setInterval(() => {
-    //if(isInvalid(grid))
-    //    grid = initializeGrid();
-    WFCStep(grid);
-    updateGrid(grid);
-}, 30);
