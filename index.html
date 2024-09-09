@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#358EF1">
+    <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <meta content="Sudoku.TS" property="og:title" />
+    <meta content="A sudoku game written in TypeScript" property="og:description" />
+    <meta content="/favicon/android-icon-96x96.png" property="og:image" />
+    <meta content="#358EF1" data-react-helmet="true" name="theme-color" />
+
+    <title>Sudoku.TS</title>
+    <style>
+        *{
+            font-family: 'Arial', sans-serif;
+            margin: 0px;
+            padding: 0px;
+            color: #fff;
+        }
+        body{
+            background-color: rgb(17, 24, 29);
+            font-size: 18px;
+        }
+        #sudokuTable{
+            position: absolute;
+            transform: translate(-50%,-50%);
+            top: 50%;
+            left: 50%;
+            border-radius: 0.1rem;
+            display: table;
+            border: 3px solid #111;
+        }
+        #sudokuTable > * {
+            display: table-row;
+        }
+        #sudokuTable > * > * {
+            display: table-cell;
+            padding: 18px;
+            border: 3px solid #111;
+        }
+
+        #controls{
+            position: absolute;
+            top: 80%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgb(41, 58, 70);
+            padding: 10px;
+        }
+        button{
+            font-size: 24px;
+            border: 3px solid #111;
+            background-color: rgb(84, 118, 143);
+            padding: 8px;
+
+        }
+        button:hover, button.selected{
+            background-color: rgb(109, 126, 138);
+            color: rgb(14, 14, 14);
+        }
+
+        .innerTable{
+            display: table;
+        }
+        .innerTable > *{
+            display: table-row;
+        }
+        .innerTable > * > *{
+            display: table-cell;
+            padding-left: 4.5px;
+            padding-right: 4.5px;
+            cursor: default;
+        }
+        .help-cursor{
+            cursor: help;
+        }
+        
+        .cursor-pointer > * > * > .innerTable > * > * {
+            cursor: pointer;
+        }
+        .cursor-pointer > * > * > .innerTable > * > *:hover{
+            background-color: rgb(255,255,255,0.4);
+        }
+
+        .wrong-grid,.wrong-h,.wrong-v{
+            background-color: rgb(255,0,0,0.4);
+        }
+    </style>
+</head>
+<body>
+    <div id="sudokuTable"></div>
+    <div id="controls"></div>
+</body>
+<script type="module" src="dist/index.js"></script>
+</html>

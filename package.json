@@ -1,0 +1,13 @@
+{
+  "name": "sudoku.ts",
+  "version": "1.0.0",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  },
+  "scripts": {
+    "build": "yarn tsc",
+    "watch": "yarn tsc --watch"
+  },
+  "private": true
+}
