@@ -62,3 +62,11 @@ export const isHorizontalWrong = (grid: OuterGrid, outY: number, innerY: number)
     hasDuplicates(getHorizontalLine(grid, outY, innerY));
 export const isVerticalWrong = (grid: OuterGrid, outX: number, innerX: number) =>
     hasDuplicates(getVerticalLine(grid, outX, innerX));
+
+export function isCompleted(grid: OuterGrid){
+    for(const innerGrid of grid)
+        for(const cell of innerGrid)
+            if(cell.size !== 1)
+                return false;
+    return true;
+}

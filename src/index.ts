@@ -1,12 +1,15 @@
 import type { OuterGrid } from "./types.js";
 import { initializeGrid, isHorizontalWrong, isInnerGridWrong, isVerticalWrong } from "./logic.js";
-import { getSelected, initalizeControls, initializeRenderingGrid, registerClickEvent, setInvalidHorizontalLine, setInvalidInnerGrid, setInvalidVerticalLine, updateGrid } from "./rendering-input.js";
+import { getSelected, initalizeControls, initializeRenderingGrid, onTriggerCollapse, registerClickEvent, setInvalidHorizontalLine, setInvalidInnerGrid, setInvalidVerticalLine, updateGrid } from "./rendering-input.js";
+import { isInvalid, WFCStep } from "./wfc.js";
 
-const grid = initializeGrid();
+let grid = initializeGrid();
 initializeRenderingGrid();
 initalizeControls();
 
 updateGrid(grid);
+
+let interval: ReturnType<typeof setInterval> | void;
 
 function checkInvalid(grid: OuterGrid){
     for(let y=0;y<3;y++)
@@ -33,3 +36,13 @@ registerClickEvent(function(outX, outY, innerX, innerY){
     updateGrid(grid);
     checkInvalid(grid);
 });
+onTriggerCollapse(function(){
+    WFCStep(grid);
+    updateGrid(grid);
+});
+interval = setInterval(() => {
+    //if(isInvalid(grid))
+    //    grid = initializeGrid();
+    WFCStep(grid);
+    updateGrid(grid);
+}, 30);

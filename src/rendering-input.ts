@@ -6,12 +6,17 @@ const controlsArray: HTMLButtonElement[] = [];
 let selected: HTMLButtonElement | void;
 
 type ClickEventFunction = (outerX: number, outerY: number, innerX: number, innerY: number) => unknown;
+type CollapseEventFunction = () => unknown;
 const clickEventsRegistered: ClickEventFunction[] = [];
+const collapseEventsRegistered: CollapseEventFunction[] = [];
 export function registerClickEvent(func: ClickEventFunction){
     clickEventsRegistered.push(func);
 }
 export function getSelected(){
     return controlsArray.findIndex(btn => btn === selected) + 1;
+}
+export function onTriggerCollapse(func: CollapseEventFunction){
+    collapseEventsRegistered.push(func);
 }
 
 function initializeInnerGrid(innerTable: HTMLDivElement, outX: number, outY: number){
@@ -106,6 +111,13 @@ export function initalizeControls(){
         selected = button;
         button.classList.add("selected");
     });
+    const collapseButton = document.createElement("button");
+    collapseButton.innerText = "COLLAPSE";
+    collapseButton.addEventListener("click", e => {
+        e.preventDefault();
+        collapseEventsRegistered.forEach(f => f());
+    });
+    controls.append(collapseButton);
 }
 
 export function setInvalidInnerGrid(outerX: number, outerY: number, value: boolean){
